@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Attackers/" />
+    <Folder Include="Targets/" />
+  </ItemGroup>
+
 </Project>
