@@ -1,4 +1,5 @@
 using VitalStrike.Domains.Bodies;
+using VitalStrike.Domains.Users;
 
 namespace VitalStrike.Domains.Hits;
 

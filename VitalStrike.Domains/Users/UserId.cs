@@ -1,4 +1,4 @@
-namespace VitalStrike.Domains;
+namespace VitalStrike.Domains.Users;
 
 /// <summary>
 /// ユーザーID
