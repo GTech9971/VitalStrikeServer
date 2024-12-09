@@ -16,9 +16,10 @@ public record class UpperBody : IBodyPart
 
     public UpperBody() : this(HP.Max) { }
 
-    public HP ApplyDamage(Damage damage)
+    public HP ApplyDamage(Damage damage, out bool isCritical)
     {
         ArgumentNullException.ThrowIfNull(damage, nameof(damage));
+        isCritical = true;
         Hp = Hp.ApplyDamage(damage, Weight);
         return Hp;
     }

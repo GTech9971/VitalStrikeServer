@@ -14,4 +14,6 @@ public record class HitPoint
         ArgumentNullException.ThrowIfNull(value, nameof(value));
         Value = value;
     }
+
+    public HitPoint(int x, int y) : this(new Point(x: x, y: y)) { }
 }

@@ -1,5 +1,5 @@
 using VitalStrike.Domains.Bodies;
-using VitalStrike.Domains.Exceptions;
+using VitalStrike.Domains.Bodies.Exceptions;
 
 namespace VitalStrike.Domains;
 
@@ -8,7 +8,6 @@ namespace VitalStrike.Domains;
 /// </summary>
 public record VitalStats
 {
-
     private Face _face;
     private Hair _hair;
     private UpperBody _upperBody;
@@ -20,6 +19,22 @@ public record VitalStats
     private RightLeg _rightLeg;
     private LeftFoot _leftFoot;
     private RightFoot _rightFoot;
+
+    private IReadOnlyCollection<IBodyPart> _bodyParts => [_face, _hair,
+                                                            _upperBody,
+                                                            _leftArm, _rightArm,
+                                                            _leftHand, _rightHand,
+                                                            _leftLeg, _rightLeg,
+                                                            _leftFoot, _rightFoot];
+
+    /// <summary>
+    /// 部位のHPの合計
+    /// *髪を除く
+    /// </summary>
+    private double TotalPartsHP => _bodyParts
+                                        .Where(x => x is Hair == false)
+                                        .Select(x => x.Hp.Value)
+                                        .Sum(x => x);
 
     public VitalStats(Face face, Hair hair,
                         UpperBody upperBody,
@@ -65,22 +80,20 @@ public record VitalStats
                                            new LeftFoot(), new RightFoot())
     { }
 
-    private IReadOnlyCollection<IBodyPart> _bodyParts => [_face, _hair,
-                                                            _upperBody,
-                                                            _leftArm, _rightArm,
-                                                            _leftHand, _rightHand,
-                                                            _leftLeg, _rightLeg,
-                                                            _leftFoot, _rightFoot];
+
+    public Face Face => _face;
+    public Hair Hair => _hair;
+    public UpperBody UpperBody => _upperBody;
+    public LeftArm LeftArm => _leftArm;
+    public RightArm RightArm => _rightArm;
+    public LeftHand LeftHand => _leftHand;
+    public RightHand RightHand => _rightHand;
+    public LeftLeg LeftLeg => _leftLeg;
+    public RightLeg RightLeg => _rightLeg;
+    public LeftFoot LeftFoot => _leftFoot;
+    public RightFoot RightFoot => _rightFoot;
 
 
-    /// <summary>
-    /// 部位のHPの合計
-    /// *髪を除く
-    /// </summary>
-    private double TotalPartsHP => _bodyParts
-                                        .Where(x => x is Hair == false)
-                                        .Select(x => x.Hp.Value)
-                                        .Sum(x => x);
 
     /// <summary>
     /// 体全体のHPを0～100に正規化した値
@@ -99,6 +112,9 @@ public record VitalStats
         }
     }
 
+    /// <summary>
+    /// 死亡したかどうか
+    /// </summary>
     public bool IsDead => TotalHP.IsEmpty;
 
 
@@ -107,8 +123,9 @@ public record VitalStats
     /// </summary>
     /// <param name="damage"></param>
     /// <param name="hitBodyPart"></param>
+    /// <param name="isCritical">急所かどうか</param>
     /// <exception cref="BodyPartNotFoundException"></exception>
-    public void ApplyDamage(Damage damage, BodyPart hitBodyPart)
+    public void ApplyDamage(Damage damage, BodyPart hitBodyPart, out bool isCritical)
     {
         ArgumentNullException.ThrowIfNull(damage, nameof(damage));
         ArgumentNullException.ThrowIfNull(hitBodyPart, nameof(hitBodyPart));
@@ -118,6 +135,6 @@ public record VitalStats
 
         if (target == null) { throw new BodyPartNotFoundException("存在しない部位が指定されました。"); }
 
-        target.ApplyDamage(damage);
+        target.ApplyDamage(damage, out isCritical);
     }
 }

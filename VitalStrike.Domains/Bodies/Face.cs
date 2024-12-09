@@ -17,9 +17,10 @@ public record class Face : IBodyPart
 
     public Face() : this(HP.Max) { }
 
-    public HP ApplyDamage(Damage damage)
+    public HP ApplyDamage(Damage damage, out bool isCritical)
     {
         ArgumentNullException.ThrowIfNull(damage, nameof(damage));
+        isCritical = true;
         Hp = Hp.ApplyDamage(damage, Weight);
         return Hp;
     }

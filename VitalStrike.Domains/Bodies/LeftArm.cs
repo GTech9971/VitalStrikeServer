@@ -17,10 +17,10 @@ public record class LeftArm : IBodyPart
 
     public LeftArm() : this(HP.Max) { }
 
-    public HP ApplyDamage(Damage damage)
+    public HP ApplyDamage(Damage damage, out bool isCritical)
     {
         ArgumentNullException.ThrowIfNull(damage, nameof(damage));
-
+        isCritical = false;
         Hp = Hp.ApplyDamage(damage, Weight);
 
         return Hp;

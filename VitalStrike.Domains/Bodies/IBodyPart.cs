@@ -19,6 +19,7 @@ public interface IBodyPart
     /// ダメージを受ける
     /// </summary>
     /// <param name="damage"></param>
+    /// <param name="isCritical">急所かどうか</param>
     /// <returns>ダメージを受けた結果</returns>
-    HP ApplyDamage(Damage damage);
+    HP ApplyDamage(Damage damage, out bool isCritical);
 }

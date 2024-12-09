@@ -1,6 +1,8 @@
-namespace VitalStrike.Domains.Exceptions;
+using VitalStrike.Domains.Exceptions;
 
-public class BodyPartNotFoundException : Exception
+namespace VitalStrike.Domains.Bodies.Exceptions;
+
+public class BodyPartNotFoundException : NotFoundException
 {
     public BodyPartNotFoundException() : base() { }
     public BodyPartNotFoundException(string message) : base(message) { }

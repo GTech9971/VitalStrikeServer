@@ -7,7 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="VitalStrike.Models" Version="1.0.1" />
+    <PackageReference Include="VitalStrike.Models" Version="1.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../VitalStrike.Domains/VitalStrike.Domains.csproj" />
   </ItemGroup>
 
 </Project>

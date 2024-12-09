@@ -46,7 +46,7 @@ public class VitalStatsTest
 
         Damage damage = Damage.Max;
 
-        sut.ApplyDamage(damage, BodyPart.FaceEnum);
+        sut.ApplyDamage(damage, BodyPart.FaceEnum, out _);
 
         Assert.True(sut.IsDead);
     }
@@ -59,7 +59,7 @@ public class VitalStatsTest
 
         Damage damage = Damage.Max;
 
-        sut.ApplyDamage(damage, BodyPart.LeftLegEnum);
+        sut.ApplyDamage(damage, BodyPart.LeftLegEnum, out _);
 
         Assert.Equal(90, sut.TotalHP.Value);
     }

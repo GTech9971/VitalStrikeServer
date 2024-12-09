@@ -16,9 +16,10 @@ public record class RightLeg : IBodyPart
 
     public RightLeg() : this(HP.Max) { }
 
-    public HP ApplyDamage(Damage damage)
+    public HP ApplyDamage(Damage damage, out bool isCritical)
     {
         ArgumentNullException.ThrowIfNull(damage, nameof(damage));
+        isCritical = false;
         Hp = Hp.ApplyDamage(damage, Weight);
         return Hp;
     }
